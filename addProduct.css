@@ -1,0 +1,63 @@
+body {
+    background: rgb(182, 233, 186);
+    height: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.menu span {
+    flex: 1;
+    text-align: center;
+    /*水平剧中*/
+    background-color: #8E8E38;
+    color: #fefefe;
+    border-style: solid;
+    border-width: 1px
+}
+
+#show{
+    float: left;
+}
+
+#productlist {
+    display: none;
+}
+
+.row {
+    display: flex;
+    /*收缩布局*/
+    background: rgb(182, 233, 186);
+    height: 2rem;
+    align-items: center;
+    /*垂直剧中*/
+}
+
+/* 鼠标经过时，改变颜色 */
+.row:hover {
+    background-color: #ffffff;
+}
+
+input {
+    width: 7%;
+    height: 1rem;
+}
+
+.button {
+    width: 3rem;
+    height: 1.5rem;
+}
+
+.submit {
+    text-align: right;
+}
+
+.prompt{
+    display: none;
+    width: 3rem;
+    height: 3rem;
+    background-color: #ffffff;
+    align-items: center;
+    text-align: center;
+}
