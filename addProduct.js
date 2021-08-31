@@ -140,8 +140,42 @@ const newLine = (array) => {
         createSpan(array[index])
     }
 }
-
-
+/**接口数据格式
+{
+    "吴明雄": {
+        "pName": "吴明雄",
+        "VC": "10",
+        "contract": "合约1",
+        "startDate": "20100202",
+        "startPrice": "30",
+        "endDate": "20100203",
+        "endPrice": "33",
+        "FR": "15",
+        "volatility": "10",
+        "schedule": "20",
+        "DVTOS": "10",
+        "UPA": "10",
+        "PR": "5",
+        "IV": "10"
+    },
+    "吴明雄2": {
+        "pName": "吴明雄2",
+        "VC": "10",
+        "contract": "合约2",
+        "startDate": "20120203",
+        "startPrice": "5",
+        "endDate": "20120204",
+        "endPrice": "4",
+        "FR": "15",
+        "volatility": "10",
+        "schedule": "11",
+        "DVTOS": "11",
+        "UPA": "11",
+        "PR": "11",
+        "IV": "11"
+    }
+}
+ */
 $(function () {
     // initProduct();
     $('div #show').on('click', function () {
@@ -165,14 +199,34 @@ $(function () {
         delProduct($(this).parent())
     });
     $('#submit').on('click', function () {
-        var db = JSON.stringify(getData())
-        if (db == "{}") {
+        var db = getData()
+        if (JSON.stringify(db) == "{}") {
+            console.log('空数据不能提交')
         } else {
-            $.post("/postdata", { data: db }, function (result) {
-                $('#prompt').empty()
-                $('#prompt').show()
-                newLine(result)
-            });
+            //接口请求模式
+            // $.post("/postdata", { data: JSON.stringify(db) }, function (result) {
+            //     $('#prompt').empty()
+            //     $('#prompt').show()
+            //     newLine(result)
+            // });
+            //本地模式 
+            //计算规则
+            const calculate = (obj) => {
+                return Number(obj.startPrice) + Number(obj.endPrice)
+            }
+            var arr = Object.keys(db)
+            var val = []
+            //遍历每条记录，调用calculate函数的规则对其进行判断买还是卖
+            for (let index = 0; index < arr.length; index++) {
+                if (calculate(db[arr[index]]) > 10) {
+                    val.push(arr[index] + ': 买')
+                } else {
+                    val.push(arr[index] + ': 卖')
+                }
+            }
+            $('#prompt').empty()
+            $('#prompt').show()
+            newLine(val)
         }
     });
 });

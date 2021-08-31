@@ -51,8 +51,8 @@ const calculate = (obj) => {
 
 app.use('/', express.static('./'));
 
-app.get('/addProduct.html', function (req, res) {
-    res.sendFile(__dirname + "/" + "addProduct.html");
+app.get('/index.html', function (req, res) {
+    res.sendFile(__dirname + "/" + "index.html");
 })
 
 //处理get请求，响应data.json的数据
@@ -62,7 +62,7 @@ app.get("/getdata", (req, res) => {
 
 //处理post请求，响应200
 app.post('/postdata', (req, res) => {
-    //JSON.parse(req.body.data)这个是前端Post过来的数据
+    // console.log(JSON.parse(req.body.data))//这个是前端Post过来的数据
     // writeData(JSON.parse(req.body.data))
     // res.send(JSON.stringify(res.statusCode))
     res.send(Result(JSON.parse(req.body.data)))
