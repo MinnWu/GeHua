@@ -184,12 +184,17 @@ $(function () {
         $('#prompt').empty()
     });
     $('div #add').on('click', function () {
-        if ($('.row').length > 0) {
-            $('#productlist').show()
-        } else {
+        if ($('.row').length == 0) {
             initProduct();
-            $('#productlist').show()
         }
+        $('#productlist').show()
+    });
+    $('#Action').on('click', function () {
+        if ($('.row').length == 0) {
+            initProduct();
+        }
+        $('#productlist').show()
+        $('#showlist').hide()
     });
     $('#addlist').delegate('#add', 'click', function () {
         // $(this).parent() 此#add元素的父级元素
@@ -211,22 +216,22 @@ $(function () {
             // });
             //本地模式 
             //计算规则
-            const calculate = (obj) => {
-                return Number(obj.startPrice) + Number(obj.endPrice)
-            }
-            var arr = Object.keys(db)
-            var val = []
-            //遍历每条记录，调用calculate函数的规则对其进行判断买还是卖
-            for (let index = 0; index < arr.length; index++) {
-                if (calculate(db[arr[index]]) > 10) {
-                    val.push(arr[index] + ': 买')
-                } else {
-                    val.push(arr[index] + ': 卖')
-                }
-            }
-            $('#prompt').empty()
-            $('#prompt').show()
-            newLine(val)
+            // const calculate = (obj) => {
+            //     return Number(obj.startPrice) + Number(obj.endPrice)
+            // }
+            // var arr = Object.keys(db)
+            // var val = []
+            // //遍历每条记录，调用calculate函数的规则对其进行判断买还是卖
+            // for (let index = 0; index < arr.length; index++) {
+            //     if (calculate(db[arr[index]]) > 10) {
+            //         val.push(arr[index] + ': 买')
+            //     } else {
+            //         val.push(arr[index] + ': 卖')
+            //     }
+            // }
+            // $('#prompt').empty()
+            // $('#prompt').show()
+            // newLine(val)
         }
     });
 });
