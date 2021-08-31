@@ -53,7 +53,6 @@ const productList = (obj, divele = 'addlist') => {
     eleObj.appendChild(div)
 }
 
-
 //增加商品信息列表
 const addElement = (obj, ele) => {
     let div, input, arr, add, del, targetElement, parent
@@ -127,11 +126,28 @@ const getData = () => {
     return obj;
 }
 
+const createSpan = (text, ele = 'prompt') => {
+    eleObj = document.getElementById(ele)
+    var div = document.createElement('div')
+    var span = document.createElement('span')
+    span.innerHTML = text
+    div.appendChild(span)
+    eleObj.appendChild(div)
+}
+
+const newLine = (array) => {
+    for (let index = 0; index < array.length; index++) {
+        createSpan(array[index])
+    }
+}
+
+
 $(function () {
     // initProduct();
     $('div #show').on('click', function () {
         $('#productlist').hide();
         $('#addlist').empty()//删除addlist下的所有元素，也就是清空列表
+        $('#prompt').empty()
     });
     $('div #add').on('click', function () {
         if ($('.row').length > 0) {
@@ -153,9 +169,9 @@ $(function () {
         if (db == "{}") {
         } else {
             $.post("/postdata", { data: db }, function (result) {
-                console.log(result)
-                $('.prompt').show()
-                document.querySelector('.prompt span').innerHTML = result
+                $('#prompt').empty()
+                $('#prompt').show()
+                newLine(result)
             });
         }
     });
