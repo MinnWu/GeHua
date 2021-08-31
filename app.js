@@ -26,9 +26,9 @@ const writeData = (data, path = dataPath) => {
     }
 }
 
-const Result = (path = dataPath) => {
+const Result = (obj) => {
     //拿到data.json的数据给obj对象
-    var obj = JSON.parse(fs.readFileSync(path, 'utf8'))
+    // var obj = JSON.parse(fs.readFileSync(path, 'utf8'))
     //用一个数据arr来接收obj对象的所有子对象，每个子对象表示一条记录，相当于obj有多少条记录
     var arr = Object.keys(obj)
 
@@ -62,9 +62,10 @@ app.get("/getdata", (req, res) => {
 
 //处理post请求，响应200
 app.post('/postdata', (req, res) => {
-    writeData(JSON.parse(req.body.data))
+    //JSON.parse(req.body.data)这个是前端Post过来的数据
+    // writeData(JSON.parse(req.body.data))
     // res.send(JSON.stringify(res.statusCode))
-    res.send(Result())
+    res.send(Result(JSON.parse(req.body.data)))
 })
 
 //创建服务并监听3000端口
