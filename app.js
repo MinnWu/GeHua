@@ -61,7 +61,7 @@ app.get("/getdata", (req, res) => {
 });
 
 //处理post请求，响应200
-app.post('/postdata', (req, res) => {
+app.post('/gehuaservice', (req, res) => {
     // console.log(JSON.parse(req.body.data))//这个是前端Post过来的数据
     // writeData(JSON.parse(req.body.data))
     // res.send(JSON.stringify(res.statusCode))

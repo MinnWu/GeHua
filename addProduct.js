@@ -24,7 +24,7 @@ const initProduct = (num = 10) => {
 }
 
 //生成商品信息列表
-const productList = (obj, divele = 'addlist') => {
+const productList = (obj, divele = 'list') => {
     let div, input, arr, add, del, eleObj
 
     eleObj = document.getElementById(divele)
@@ -95,7 +95,7 @@ const delProduct = (ele) => {
 //获取单行商品信息列表的值，返回一个json对象
 const getValue = (index) => {
     var product = JSON.parse(JSON.stringify(_product));
-    var array = document.querySelectorAll('#addlist div');
+    var array = document.querySelectorAll('#list div');
     product.pName = array[index].querySelector('#pName').value;
     product.VC = array[index].querySelector('#VC').value;
     product.contract = array[index].querySelector('#contract').value;
@@ -116,7 +116,7 @@ const getValue = (index) => {
 //获取所有商品列表信息行的值，返回一个json对象
 const getData = () => {
     var obj = {}
-    var array = document.querySelectorAll('#addlist div')
+    var array = document.querySelectorAll('#list div')
     for (let index = 0; index < array.length; index++) {
         if (array[index].querySelector('#pName').value != "") {
             var pName = array[index].querySelector('#pName').value
@@ -129,9 +129,9 @@ const getData = () => {
 const createSpan = (text, ele = 'prompt') => {
     eleObj = document.getElementById(ele)
     var div = document.createElement('div')
-    var span = document.createElement('span')
-    span.innerHTML = text
-    div.appendChild(span)
+    var p = document.createElement('p')
+    p.innerHTML = text
+    div.appendChild(p)
     eleObj.appendChild(div)
 }
 
@@ -177,30 +177,24 @@ const newLine = (array) => {
 }
  */
 $(function () {
-    // initProduct();
-    $('div #show').on('click', function () {
-        $('#productlist').hide();
-        $('#addlist').empty()//删除addlist下的所有元素，也就是清空列表
-        $('#prompt').empty()
+    $('#Action').on('click', function () {
+        if ($('.row').length == 0) {
+            initProduct();
+        }
+        $('.product').show()
+        $('.welcome').hide()
     });
     $('div #add').on('click', function () {
         if ($('.row').length == 0) {
             initProduct();
         }
-        $('#productlist').show()
+        $('.product').show()
     });
-    $('#Action').on('click', function () {
-        if ($('.row').length == 0) {
-            initProduct();
-        }
-        $('#productlist').show()
-        $('#showlist').hide()
-    });
-    $('#addlist').delegate('#add', 'click', function () {
+    $('#list').delegate('#add', 'click', function () {
         // $(this).parent() 此#add元素的父级元素
         addElement(_product, $(this).parent())
     });
-    $('#addlist').delegate('#del', 'click', function () {
+    $('#list').delegate('#del', 'click', function () {
         delProduct($(this).parent())
     });
     $('#submit').on('click', function () {
@@ -209,11 +203,11 @@ $(function () {
             console.log('空数据不能提交')
         } else {
             //接口请求模式
-            // $.post("/postdata", { data: JSON.stringify(db) }, function (result) {
-            //     $('#prompt').empty()
-            //     $('#prompt').show()
-            //     newLine(result)
-            // });
+            $.post("/gehuaservice", { data: JSON.stringify(db) }, function (result) {
+                $('#prompt').empty()
+                $('#prompt').show()
+                newLine(result)
+            });
             //本地模式 
             //计算规则
             // const calculate = (obj) => {
