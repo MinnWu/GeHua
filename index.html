@@ -4,30 +4,46 @@
 <head>
     <meta charset="utf-8">
     <title>格华智能数字交易系统</title>
-    <script src="./jquery-3.6.0.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="./addProduct.js"></script>
     <link rel="stylesheet" href="./addProduct.css">
 </head>
 
 <body>
-        <div class="welcome">
-            <div class="logo">
-                <p>XXXXXXXXXXXXXXXXXX</p>
-            </div>
-            <div id="Action">
-                <p>XXXXXX</p>
-            </div>
+    <div class="large welcome">
+        <div class="logo">
+            <p>欢迎使用格华产品策略定制终端</p>
         </div>
-        <div class="product">
-            <div id="list"></div>
-            <div class="submit">
-                <hr>
-                <input type="button" id="submit" value="确定" class="button">
-                <hr>
-            </div>
+        <div id="Action">
+            <p>Action</p>
         </div>
-    <div id="prompt">
     </div>
+    <div class="large product">
+        <div class="title">
+            <p>Product Information</p>
+        </div>
+        <div id="list">
+        </div>
+        <hr>
+        <div class="submit">
+            <span>confirm</span>
+        </div>
+        <hr>
+    </div>
+    <div class="large prompt white_content">
+        <div class="prompt title">
+            <span>System Message</span>
+        </div>
+        <div class="prompt content">
+            <div id="content"></div>
+        </div>
+        <div class="close">
+            <div>
+                <span>Close</span>
+            </div>
+        </div>
+    </div>
+    <div id="fade" class="black_overlay"></div>
 </body>
 
 </html>
