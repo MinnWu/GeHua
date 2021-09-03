@@ -104,6 +104,26 @@ const delProduct = (ele) => {
     }
 }
 
+// 非空校验
+const notEmptyCheck = () => {
+    var ele, flag = true, i = 1
+    var arr = Object.keys(_product)
+    do {
+        for (let index = 0; index < arr.length; index++) {
+            ele = document.querySelector('.row:nth-child(' + i + ') #' + arr[index]).value
+            if (ele == null || ele == "") {
+                document.querySelector('.row:nth-child(' + i + ') #' + arr[index]).style.border = '1px solid red'
+                flag = false
+            } else {
+                document.querySelector('.row:nth-child(' + i + ') #' + arr[index]).style.border = 'none'
+                document.querySelector('.row:nth-child(' + i + ') #' + arr[index]).style['border-bottom'] = '1px solid grey'
+            }
+        }
+        i++
+    } while (i <= document.querySelectorAll('#list .row').length);
+    return flag
+}
+
 //获取单行商品信息列表的值，返回一个json对象
 const getValue = (index) => {
     var product = JSON.parse(JSON.stringify(_product));
@@ -162,11 +182,8 @@ $(function () {
         delProduct($(this).parent().parent())
     });
     $('.submit').on('click', function () {
-        var db = getData()
-        if (JSON.stringify(db) == "{}") {
-            console.log('空数据不能提交')
-        } else {
-
+        if (notEmptyCheck()) {
+            var db = getData()
             //接口请求模式
             $.post("/gehuaservice", { data: JSON.stringify(db) }, function (result) {
                 $('#content').empty()
