@@ -1,5 +1,13 @@
 // var list = ['产品名称', '起始日期', '初始价格', '结束日期', '末期价格', '波动率', '溢价率',]
-var list = ['Enter product name.', 'Start date', 'Enter start price.', 'End date', 'Enter end price', 'Enter volatility index.', 'Enter premium rate.',]
+var list = [
+    'Please enter product name.',
+    'Please choose start date.',
+    'Please enter start price.',
+    'Please choose end date.',
+    'Please enter end price.',
+    'Please enter volatility rate.',
+    'Please enter premium rate.'
+]
 var _product = {
     'pName': '',     //商品名称
     'startDate': '',     //起始日期
@@ -12,7 +20,7 @@ var _product = {
 
 //生成商品信息列表
 const productList = (obj, divele = 'list') => {
-    let div, input, arr, eleObj, small, mini, span, fnkey, keyadd, keydel, a, kdiv
+    let div, input, arr, eleObj, small, mini, span, key, add, del, a, kdiv
     eleObj = document.getElementById(divele)
     div = document.createElement('div')
     div.className = 'row'
@@ -33,29 +41,23 @@ const productList = (obj, divele = 'list') => {
         small.appendChild(mini)
         div.appendChild(small)
     }
-    fnkey = document.createElement('div')
-    fnkey.className = 'fnkey'
-    keyadd = document.createElement('div')
-    keyadd.className = 'key add'
-    a = document.createElement('a')
-    a.innerHTML = '✚'
-    keyadd.appendChild(a)
-    fnkey.appendChild(keyadd)
+    key = document.createElement('div')
+    key.className = 'key'
+    add = document.createElement('div')
+    add.className = 'add'
+    key.appendChild(add)
     kdiv = document.createElement('div')
-    fnkey.appendChild(kdiv)
-    keydel = document.createElement('div')
-    keydel.className = 'key del'
-    a = document.createElement('a')
-    a.innerHTML = '━'
-    keydel.appendChild(a)
-    fnkey.appendChild(keydel)
-    div.appendChild(fnkey)
+    key.appendChild(kdiv)
+    del = document.createElement('div')
+    del.className = 'del'
+    key.appendChild(del)
+    div.appendChild(key)
     eleObj.appendChild(div)
 }
 
 //增加商品信息列表
 const addElement = (obj, ele) => {
-    let div, input, arr, small, mini, span, fnkey, keyadd, keydel, a, kdiv
+    let div, input, arr, small, mini, span, key, add, del, kdiv
     div = document.createElement('div')
     div.className = 'row'
     arr = Object.keys(obj)
@@ -64,7 +66,7 @@ const addElement = (obj, ele) => {
         small.className = 'small'
         mini = document.createElement('div')
         span = document.createElement('span')
-        span.innerHTML = list[index] + ':'
+        span.innerHTML = list[index]
         mini.appendChild(span)
         small.appendChild(mini)
         mini = document.createElement('div')
@@ -75,23 +77,17 @@ const addElement = (obj, ele) => {
         small.appendChild(mini)
         div.appendChild(small)
     }
-    fnkey = document.createElement('div')
-    fnkey.className = 'fnkey'
-    keyadd = document.createElement('div')
-    keyadd.className = 'key add'
-    a = document.createElement('a')
-    a.innerHTML = '✚'
-    keyadd.appendChild(a)
-    fnkey.appendChild(keyadd)
+    key = document.createElement('div')
+    key.className = 'key'
+    add = document.createElement('div')
+    add.className = 'add'
+    key.appendChild(add)
     kdiv = document.createElement('div')
-    fnkey.appendChild(kdiv)
-    keydel = document.createElement('div')
-    keydel.className = 'key del'
-    a = document.createElement('a')
-    a.innerHTML = '━'
-    keydel.appendChild(a)
-    fnkey.appendChild(keydel)
-    div.appendChild(fnkey)
+    key.appendChild(kdiv)
+    del = document.createElement('div')
+    del.className = 'del'
+    key.appendChild(del)
+    div.appendChild(key)
     ele.after(div)
 }
 
@@ -151,20 +147,18 @@ const getData = () => {
     return obj;
 }
 
-const createSpan = (text, ele = '#content') => {
-    eleObj = document.querySelector(ele)
-    var div = document.createElement('div')
-    var p = document.createElement('p')
-    p.innerHTML = text
-    div.appendChild(p)
-    eleObj.appendChild(div)
-}
-
-const newLine = (array) => {
+//根据结果生成展示信息
+const newLine = (array, ele = '#content') => {
     for (let index = 0; index < array.length; index++) {
-        createSpan(array[index])
+        var eleObj = document.querySelector(ele)
+        var div = document.createElement('div')
+        var p = document.createElement('p')
+        p.innerHTML = array[index]
+        div.appendChild(p)
+        eleObj.appendChild(div)
     }
 }
+
 $(function () {
     $('#Action').on('click', function () {
         if ($('.row').length == 0) {
