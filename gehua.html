@@ -7,7 +7,8 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <style>
         body {
-            background: rgb(182, 233, 186);
+            /* background: rgb(182, 233, 186); */
+            background: rgb(0 0 0 / 90%);
             margin-top: 15px;
             margin-bottom: 15px;
             margin-left: 15px;
@@ -15,10 +16,33 @@
             font-family: fangsong;
         }
 
+        .backandnext {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .step {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            color: black;
+        }
+
+        .back {
+            border-radius: 0px 75px 0px 0px;
+        }
+
+        .next {
+            border-radius: 75px 0px 0px 0px;
+        }
+
         .title {
             width: 800px;
             height: 100px;
-            background-color: rgba(255, 255, 255, 0.856);
+            background-color: white;
             margin: 0 auto;
             border-radius: 20px 20px 20px 20px;
             display: flex;
@@ -28,8 +52,12 @@
         }
 
         .large {
-            width: 830px;
+            width: 100%;
             margin: 0 auto;
+            position: absolute;
+            top: 1%;
+            left: 50%;
+            transform: translate(-50%, 0%);
         }
 
         p {
@@ -38,19 +66,12 @@
 
         .welcome {
             display: block;
-            /* text-align: center; */
-            position: absolute;
             top: 50%;
-            left: 50%;
             transform: translate(-50%, -50%);
         }
 
         .product {
             display: none;
-            position: absolute;
-            top: 1%;
-            left: 50%;
-            transform: translate(-50%, 0%);
         }
 
         .logo {
@@ -59,20 +80,20 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            color: black;
+            color: white;
         }
 
         #Action {
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background-color: rgb(0 0 0 / 80%);
+            background-color: white;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            color: rgb(255 255 255 / 86%);
+            color: gray;
         }
 
         input {
@@ -98,7 +119,7 @@
         .row {
             width: 800px;
             border-radius: 20px 20px 20px 20px;
-            background-color: rgba(255, 255, 255, 0.856);
+            background-color: white;
             margin: 0 auto;
         }
 
@@ -130,10 +151,10 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            background-color: rgb(0 0 0 / 80%);
+            background-color: gray;
             border-style: solid;
             align-items: center;
-            color: rgb(255 255 255 / 86%);
+            color: white;
         }
 
         .submit span {
@@ -160,7 +181,7 @@
             height: 50px;
             border-radius: 50%;
             background-color: rgb(0 0 0 / 80%);
-            color: rgb(255 255 255 / 86%);
+            color: white;
             transition: color .25s;
             position: relative;
         }
@@ -193,7 +214,7 @@
             height: 50px;
             border-radius: 50%;
             background-color: rgb(0 0 0 / 80%);
-            color: rgb(255 255 255 / 86%);
+            color: white;
             transition: color .25s;
             position: relative;
         }
@@ -281,34 +302,101 @@
             font-size: 42px;
             font-family: '简体';
         }
+
+        table {
+            width: 100%;
+            text-align: center;
+            font-size: 46px;
+            font-family: '简体';
+        }
+
+        .productTable {
+            color: white;
+        }
+
+        .productTable thead {
+            background-color: gray;
+            font-size: 36px;
+        }
+
+        .productTable tbody {
+            text-align: center;
+            font-size: 36px;
+            font-family: 简体;
+        }
+
+        .productTable tbody tr {
+            height: 60px;
+        }
+
+        .productTable tbody tr td:nth-child(1) {
+            color: yellow;
+        }
+
+        .detailTable {
+            display: none;
+            text-align: center;
+            color: white;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .detailTable div:nth-child(1) {
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 简体;
+        }
+
+        .detailTable span {
+            font-size: 56px;
+        }
+
+        .detailTable tbody {
+            text-align: center;
+            font-size: 36px;
+            font-family: 简体;
+        }
+
+        .detailTable tbody tr {
+            height: 100px;
+        }
+
+        .detailTable tr td:nth-child(1) {
+            width: 50%;
+        }
     </style>
     <script>// var list = ['产品名称', '起始日期', '初始价格', '结束日期', '末期价格', '波动率', '溢价率',]
         var list = [
-            'Please enter product name.',
-            'Please choose start date.',
-            'Please enter start price.',
-            'Please choose end date.',
-            'Please enter end price.',
-            'Please enter volatility rate.',
-            'Please enter premium rate.'
+            'Please enter contract name.(合约名称)',
+            'Please enter GeHua trend.(格华趋势)',
+            'Please enter time to level.(时机级别)',
+            'Please enter action time.(行动时机)',
+            'Please enter GeHua priority.(格华优选)',
+            'Positions in management.(仓位管理)',
+            'Please enter risk management.(风险控制)',
+            'Please enter profit target.(盈利目标)'
         ]
-        var _product = {
-            'pName': '',     //商品名称
-            'startDate': '',     //起始日期
-            'startPrice': '',     //初始价格
-            'endDate': '',       //结束日期
-            'endPrice': '',  //末期价格
-            'volatility': '',    //波动率
-            'PR': '',    //溢价率
+        var contract = {
+            'name': '合约名称',
+            'trend': '格华趋势',
+            'level': '时机级别',
+            'action': '行动时机',
+            'priority': '优先级',
+            'Positions': '仓位管理',
+            'risk': '风险控制',
+            'profit': '盈利目标'
         }
 
         //生成商品信息列表
-        const productList = (obj, divele = 'list') => {
-            let div, input, arr, eleObj, small, mini, span, key, add, del, a, kdiv
+        const productList = (divele = 'list') => {
+            let div, input, eleObj, small, mini, span, key, add, del, a, kdiv
             eleObj = document.getElementById(divele)
             div = document.createElement('div')
             div.className = 'row'
-            arr = Object.keys(obj)
             for (let index = 0; index < list.length; index++) {
                 small = document.createElement('div')
                 small.className = 'small'
@@ -320,7 +408,7 @@
                 mini = document.createElement('div')
                 input = document.createElement('input')
                 input.type = 'text'
-                input.id = arr[index]
+                input.id = Object.keys(contract)[index]
                 mini.appendChild(input)
                 small.appendChild(mini)
                 div.appendChild(small)
@@ -340,11 +428,10 @@
         }
 
         //增加商品信息列表
-        const addElement = (obj, ele) => {
-            let div, input, arr, small, mini, span, key, add, del, kdiv
+        const addElement = (ele) => {
+            let div, input, small, mini, span, key, add, del, kdiv
             div = document.createElement('div')
             div.className = 'row'
-            arr = Object.keys(obj)
             for (let index = 0; index < list.length; index++) {
                 small = document.createElement('div')
                 small.className = 'small'
@@ -356,7 +443,7 @@
                 mini = document.createElement('div')
                 input = document.createElement('input')
                 input.type = 'text'
-                input.id = arr[index]
+                input.id = Object.keys(contract)[index]
                 mini.appendChild(input)
                 small.appendChild(mini)
                 div.appendChild(small)
@@ -386,8 +473,7 @@
 
         // 非空校验
         const notEmptyCheck = () => {
-            var ele, flag = true, i = 1
-            var arr = Object.keys(_product)
+            var ele, flag = true, i = 1, arr = Object.keys(contract)
             do {
                 for (let index = 0; index < arr.length; index++) {
                     ele = document.querySelector('.row:nth-child(' + i + ') #' + arr[index]).value
@@ -404,117 +490,171 @@
             return flag
         }
 
-        //获取单行商品信息列表的值，返回一个json对象
-        const getValue = (index) => {
-            var product = JSON.parse(JSON.stringify(_product));
-            var array = document.querySelectorAll('#list .row');
-            product.pName = array[index].querySelector('#pName').value;
-            product.startDate = array[index].querySelector('#startDate').value;
-            product.startPrice = array[index].querySelector('#startPrice').value;
-            product.endDate = array[index].querySelector('#endDate').value;
-            product.endPrice = array[index].querySelector('#endPrice').value;
-            product.volatility = array[index].querySelector('#volatility').value;
-            product.PR = array[index].querySelector('#PR').value;
-            return product;
-        }
-
-        //获取所有商品列表信息行的值，返回一个json对象
+        //获取商品信息列表的值，返回一个json对象
         const getData = () => {
-            var obj = {}
-            var array = document.querySelectorAll('#list .row')
-            for (let index = 0; index < array.length; index++) {
-                if (array[index].querySelector('#pName').value != "") {
-                    var pName = array[index].querySelector('#pName').value
-                    obj[pName] = getValue(index)
-                } else { return obj }
-            }
-            return obj;
+            var val, obj = {}, i = 1, arr = Object.keys(contract)
+            do {
+                var objrow = {}
+                for (let index = 0; index < arr.length; index++) {
+                    val = document.querySelector('.row:nth-child(' + i + ') #' + arr[index]).value
+                    if (index >= 5) {
+                        val = val + '%'
+                    }
+                    objrow[arr[index]] = val
+                }
+                var name = document.querySelector('.row:nth-child(' + i + ') #name').value
+                obj[name] = objrow
+                i++
+            } while (i <= document.querySelectorAll('#list .row').length);
+            return obj
         }
 
-        //根据结果生成展示信息
-        const newLine = (array, ele = '#content') => {
-            for (let index = 0; index < array.length; index++) {
-                var eleObj = document.querySelector(ele)
-                var div = document.createElement('div')
-                var p = document.createElement('p')
-                p.innerHTML = array[index]
-                div.appendChild(p)
-                eleObj.appendChild(div)
+        //创建产品列表
+        const createPorductTable = (obj, ele = '.productTable') => {
+            var eleObj, table, thead, tbody, tr, th, td, arr = Object.keys(contract), array = Object.keys(obj)
+            eleObj = document.querySelector(ele)
+            table = document.createElement('table')
+            thead = table.createTHead()
+            tbody = table.createTBody()
+            tr = document.createElement("tr");
+            for (let index = 0; index < 5; index++) {
+                th = document.createElement("th")
+                th.innerHTML = contract[arr[index]]
+                tr.appendChild(th)
             }
+            thead.appendChild(tr)
+            for (let index = 0; index < array.length; index++) {
+                var tr = document.createElement("tr")
+                for (var j = 0; j < 5; j++) {
+                    td = document.createElement("td")
+                    td.innerHTML = obj[array[index]][arr[j]]
+                    tr.appendChild(td)
+                }
+                tbody.appendChild(tr)
+            }
+            eleObj.appendChild(table)
         }
 
-        //计算规则
-        const calculate = (obj) => {
-            return Number(obj.startPrice) + Number(obj.endPrice)
+        //创建详情列表
+        const createDetailTable = (obj) => {
+            document.querySelector('.detailTable #name').innerHTML = obj['name']
+            document.querySelector('.detailTable #Positions').innerHTML = obj['Positions']
+            document.querySelector('.detailTable #risk').innerHTML = obj['risk']
+            document.querySelector('.detailTable #profit').innerHTML = obj['profit']
         }
-        
+
         $(function () {
+            var data, loction
+            $('.backandnext').hide()
             $('#Action').on('click', function () {
                 if ($('.row').length == 0) {
-                    productList(_product);
+                    productList();
                 }
                 $('.product').show()
                 $('.welcome').hide()
             });
             $('#list').delegate('.add', 'click', function () {
                 // $(this).parent() 此#add元素的父级元素
-                // console.log($(this).parent().parent())
-                addElement(_product, $(this).parent().parent())
+                addElement($(this).parent().parent())
             });
             $('#list').delegate('.del', 'click', function () {
                 delProduct($(this).parent().parent())
             });
             $('.submit').on('click', function () {
+                loction = '.productTable'
                 if (notEmptyCheck()) {
-                    var db = getData()
-                    var arr = Object.keys(db)
-                    var val = []
-                    //遍历每条记录，调用calculate函数的规则对其进行判断买还是卖
-                    for (let index = 0; index < arr.length; index++) {
-                        if (calculate(db[arr[index]]) > 10) {
-                            val.push(arr[index] + ': 买')
-                        } else {
-                            val.push(arr[index] + ': 卖')
-                        }
-                    }
-                    $('#content').empty()
-                    $('.prompt').show()
-                    newLine(val)
-                    document.querySelector('.prompt').style.display = 'block'
-                    document.querySelector('#fade').style.display = 'block'
+                    data = getData()
+                    $('.product').hide()
+                    createPorductTable(data)
+                    $(loction).show()
+                    $('.backandnext').show()
                 }
             });
-            $('.close').on('click', function () {
-                $('.prompt').hide()
-                $('#fade').hide()
-                $('#content').empty()
+            $('.productTable').delegate('tbody tr', 'click', function () {
+                loction = '.detailTable'
+                $('.productTable').hide()
+                var name = $(this).context.querySelector('td:nth-child(1)').innerText
+                createDetailTable(data[name])
+                $('.detailTable').show()
+            })
+            $('.back').on('click', function () {
+                console.log(loction)
+                switch (loction) {
+                    case '.productTable':
+                        $(loction).hide()
+                        $(loction).empty()
+                        $('.backandnext').hide()
+                        loction = '.product'
+                        $(loction).show()
+                        break;
+                    case '.detailTable':
+                        $(loction).hide()
+                        loction = '.productTable'
+                        $(loction).show()
+                        break;
+                }
+            })
+            $('.next').on('click', function () {
+
             })
         });
     </script>
 </head>
 
 <body>
-    <div class="large welcome">
-        <div class="logo">
-            <p>Welcome and use GeHua</p>
+    <div>
+        <div class="large welcome">
+            <div class="logo">
+                <p>Welcome and use GeHua</p>
+            </div>
+            <div id="Action">
+                <p>Action</p>
+            </div>
         </div>
-        <div id="Action">
-            <p>Action</p>
+        <div class="large product">
+            <div class="title">
+                <p>Product Information</p>
+            </div>
+            <div id="list">
+            </div>
+            <hr>
+            <div class="submit">
+                <span>Confirm</span>
+            </div>
+            <hr>
+        </div>
+        <div class="large productTable"> </div>
+        <div class="large detailTable">
+            <div>
+                <span id="name"></span>
+            </div>
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>仓位管理</td>
+                            <td id="Positions"></td>
+                        </tr>
+                        <tr>
+                            <td>风险控制</td>
+                            <td id="risk"></td>
+                        </tr>
+                        <tr>
+                            <td>盈利目标</td>
+                            <td id="profit"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <div class="large product">
-        <div class="title">
-            <p>Product Information</p>
+    <div class="backandnext">
+        <div class="step back">
         </div>
-        <div id="list">
+        <div class="step next">
         </div>
-        <hr>
-        <div class="submit">
-            <span>Confirm</span>
-        </div>
-        <hr>
     </div>
-    <div id="fade" class="black_overlay">
+    <!-- <div id="fade" class="black_overlay">
         <div class="large prompt white_content">
             <div class="prompt title">
                 <span>System Message</span>
@@ -529,7 +669,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 </body>
 
 
