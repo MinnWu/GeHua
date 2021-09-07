@@ -12,17 +12,17 @@
             $('.Action').on('click', function () {
                 loction = '.product'
                 if ($('.row').length == 0) {
-                    createProductList();
+                    productList();
                 }
                 $('.product').show()
                 $('.welcome').hide()
                 $('.right').show()
             })
-            $('#list').delegate('.add', 'click', function () {
+            $('.list').delegate('.add', 'click', function () {
                 // $(this).parent() 此#add元素的父级元素
-                addProductList($(this).parent().parent())
+                productList($(this).parent().parent())
             })
-            $('#list').delegate('.del', 'click', function () {
+            $('.list').delegate('.del', 'click', function () {
                 delProductList($(this).parent().parent())
             })
             $('.back').on('click', function () {
@@ -51,6 +51,7 @@
                             $('.right').hide()
                             $('.productTable').empty()
                             db = getData()
+                            console.log(db)
                             $.post("/gehuaservice", { data: JSON.stringify(db) }, function (result) {
                                 createPorductTable(result)
                                 $('.middle').hide()
@@ -71,8 +72,8 @@
                         case '.detailTable':
                             $(loction).hide()
                             $('.left').hide()
-                            $('#list').empty()
-                            createProductList()
+                            $('.list').empty()
+                            productList()
                             loction = '.middle'
                             $(loction).show()
                             loction = '.product'
@@ -135,7 +136,7 @@
             <div class="title">
                 <p>Product Information</p>
             </div>
-            <div id="list">
+            <div class="list">
             </div>
         </div>
     </div>
