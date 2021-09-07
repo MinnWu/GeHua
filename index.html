@@ -9,10 +9,7 @@
     <script>
         $(function () {
             var db, loction
-            $('.left').hide()
-            $('.right').hide()
-            $('.backandnext').hide()
-            $('#Action').on('click', function () {
+            $('.Action').on('click', function () {
                 loction = '.product'
                 if ($('.row').length == 0) {
                     createProductList();
@@ -96,8 +93,8 @@
 </head>
 
 <body>
-    <div class="large productTable" style="display: none;"> </div>
-    <div class="large detailTable" style="display: none;">
+    <div class="large productTable"> </div>
+    <div class="large detailTable">
         <div>
             <span id="name"></span>
         </div>
@@ -130,11 +127,11 @@
             <div class="logo">
                 <p>Welcome and use GeHua</p>
             </div>
-            <div id="Action">
+            <div class="Action">
                 <p>Action</p>
             </div>
         </div>
-        <div class="large product" style="display: none;">
+        <div class="large product">
             <div class="title">
                 <p>Product Information</p>
             </div>
