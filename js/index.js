@@ -1,4 +1,4 @@
-var list = [
+var titleList = [
 	'Please enter contract name.(合约名称)',
 	'Please enter GeHua trend.(格华趋势)',
 	'Please enter time to level.(时机级别)',
@@ -19,16 +19,17 @@ var contract = {
 	'profit': '盈利目标'
 }
 
+//添加产品列表
 const productList = (ele) => {
 	let div, input, eleObj, small, mini, span, key, add, del, kdiv
 	div = document.createElement('div')
 	div.className = 'row'
-	for (let index = 0; index < list.length; index++) {
+	for (let index = 0; index < titleList.length; index++) {
 		small = document.createElement('div')
 		small.className = 'small'
 		mini = document.createElement('div')
 		span = document.createElement('span')
-		span.innerHTML = list[index]
+		span.innerHTML = titleList[index]
 		mini.appendChild(span)
 		small.appendChild(mini)
 		mini = document.createElement('div')
@@ -56,77 +57,6 @@ const productList = (ele) => {
 	} else {
 		ele.after(div)
 	}
-}
-
-//生成商品信息列表
-const createProductList = (divele = 'list') => {
-	let div, input, eleObj, small, mini, span, key, add, del, kdiv
-	eleObj = document.getElementById(divele)
-	div = document.createElement('div')
-	div.className = 'row'
-	for (let index = 0; index < list.length; index++) {
-		small = document.createElement('div')
-		small.className = 'small'
-		mini = document.createElement('div')
-		span = document.createElement('span')
-		span.innerHTML = list[index]
-		mini.appendChild(span)
-		small.appendChild(mini)
-		mini = document.createElement('div')
-		input = document.createElement('input')
-		input.type = 'text'
-		input.id = Object.keys(contract)[index]
-		mini.appendChild(input)
-		small.appendChild(mini)
-		div.appendChild(small)
-	}
-	key = document.createElement('div')
-	key.className = 'key'
-	add = document.createElement('div')
-	add.className = 'add'
-	key.appendChild(add)
-	kdiv = document.createElement('div')
-	key.appendChild(kdiv)
-	del = document.createElement('div')
-	del.className = 'del'
-	key.appendChild(del)
-	div.appendChild(key)
-	eleObj.appendChild(div)
-}
-
-//增加商品信息列表
-const addProductList = (ele) => {
-	let div, input, small, mini, span, key, add, del, kdiv
-	div = document.createElement('div')
-	div.className = 'row'
-	for (let index = 0; index < list.length; index++) {
-		small = document.createElement('div')
-		small.className = 'small'
-		mini = document.createElement('div')
-		span = document.createElement('span')
-		span.innerHTML = list[index]
-		mini.appendChild(span)
-		small.appendChild(mini)
-		mini = document.createElement('div')
-		input = document.createElement('input')
-		input.type = 'text'
-		input.id = Object.keys(contract)[index]
-		mini.appendChild(input)
-		small.appendChild(mini)
-		div.appendChild(small)
-	}
-	key = document.createElement('div')
-	key.className = 'key'
-	add = document.createElement('div')
-	add.className = 'add'
-	key.appendChild(add)
-	kdiv = document.createElement('div')
-	key.appendChild(kdiv)
-	del = document.createElement('div')
-	del.className = 'del'
-	key.appendChild(del)
-	div.appendChild(key)
-	ele.after(div)
 }
 
 //删除商品信息列表
