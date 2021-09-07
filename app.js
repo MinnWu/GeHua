@@ -65,7 +65,7 @@ app.post('/gehuaservice', (req, res) => {
     // console.log(JSON.parse(req.body.data))//这个是前端Post过来的数据
     // writeData(JSON.parse(req.body.data))
     // res.send(JSON.stringify(res.statusCode))
-    res.send(Result(JSON.parse(req.body.data)))
+    res.send(JSON.parse(req.body.data))
 })
 
 //创建服务并监听3000端口

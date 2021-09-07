@@ -3,46 +3,148 @@
 
 <head>
     <meta charset="utf-8">
-    <title>格华智能数字交易系统</title>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="./addProduct.js"></script>
-    <link rel="stylesheet" href="./addProduct.css">
+    <script type="text/javascript" src="./js/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/index.js"></script>
+    <script>
+        $(function () {
+            var db, loction
+            $('.left').hide()
+            $('.right').hide()
+            $('.backandnext').hide()
+            $('#Action').on('click', function () {
+                loction = '.product'
+                if ($('.row').length == 0) {
+                    createProductList();
+                }
+                $('.product').show()
+                $('.welcome').hide()
+                $('.right').show()
+            })
+            $('#list').delegate('.add', 'click', function () {
+                // $(this).parent() 此#add元素的父级元素
+                addProductList($(this).parent().parent())
+            })
+            $('#list').delegate('.del', 'click', function () {
+                delProductList($(this).parent().parent())
+            })
+            $('.back').on('click', function () {
+                switch (loction) {
+                    case '.productTable':
+                        $('.left').hide()
+                        $('.right').show()
+                        $(loction).hide()
+                        $(loction).empty()
+                        loction = '.middle'
+                        $(loction).show()
+                        loction = '.product'
+                        break;
+                    case '.detailTable':
+                        $(loction).hide()
+                        loction = '.productTable'
+                        $(loction).show()
+                        break;
+                }
+            })
+            $('.next').on('click', function () {
+                if (notEmptyCheck()) {
+                    switch (loction) {
+                        case '.product':
+                            $('.left').show()
+                            $('.right').hide()
+                            $('.productTable').empty()
+                            db = getData()
+                            $.post("/gehuaservice", { data: JSON.stringify(db) }, function (result) {
+                                createPorductTable(result)
+                                $('.middle').hide()
+                                loction = '.productTable'
+                                $(loction).show()
+                            });
+                            //本地请求
+                            // createPorductTable(db)
+                            // $('.middle').hide()
+                            // loction = '.productTable'
+                            // $(loction).show()
+                            break;
+                        case '.productTable':
+                            $(loction).hide()
+                            loction = '.detailTable'
+                            $(loction).show()
+                            break;
+                        case '.detailTable':
+                            $(loction).hide()
+                            $('.left').hide()
+                            $('#list').empty()
+                            createProductList()
+                            loction = '.middle'
+                            $(loction).show()
+                            loction = '.product'
+                            break;
+                    }
+                }
+            })
+            $('.productTable').delegate('tbody tr', 'click', function () {
+                loction = '.detailTable'
+                $('.productTable').hide()
+                var name = this.querySelector('td:nth-child(1)').innerText
+                createDetailTable(db[name])
+                $('.right').show()
+                $('.detailTable').show()
+            })
+        })
+    </script>
 </head>
 
 <body>
-    <div class="large welcome">
-        <div class="logo">
-            <p>Welcome and use GeHua</p>
+    <div class="large productTable" style="display: none;"> </div>
+    <div class="large detailTable" style="display: none;">
+        <div>
+            <span id="name"></span>
         </div>
-        <div id="Action">
-            <p>Action</p>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>仓位管理</td>
+                        <td id="Positions"></td>
+                    </tr>
+                    <tr>
+                        <td>风险控制</td>
+                        <td id="risk"></td>
+                    </tr>
+                    <tr>
+                        <td>盈利目标</td>
+                        <td id="profit"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="large product">
-        <div class="title">
-            <p>Product Information</p>
+    <div class="left">
+        <div class="step back">
+            <div class="arrow bt_back"></div>
         </div>
-        <div id="list">
-        </div>
-        <hr>
-        <div class="submit">
-            <span>Confirm</span>
-        </div>
-        <hr>
     </div>
-    <div id="fade" class="black_overlay">
-        <div class="large prompt white_content">
-            <div class="prompt title">
-                <span>System Message</span>
+    <div class="middle">
+        <div class="large welcome">
+            <div class="logo">
+                <p>Welcome and use GeHua</p>
             </div>
-            <div class="prompt content">
-                <div id="content"></div>
+            <div id="Action">
+                <p>Action</p>
             </div>
-            <div class="close">
-                <div>
-                    <span>Close</span>
-                </div>
+        </div>
+        <div class="large product" style="display: none;">
+            <div class="title">
+                <p>Product Information</p>
             </div>
+            <div id="list">
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="step next">
+            <div class="arrow bt_next"></div>
         </div>
     </div>
 </body>
